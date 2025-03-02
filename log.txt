@@ -1,0 +1,107 @@
+Started by user Dicoding Indonesia
+Obtained Jenkinsfile from git file:///home/submission1/a428-cicd-labs
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url file:///home/submission1/a428-cicd-labs # timeout=10
+Fetching upstream changes from file:///home/submission1/a428-cicd-labs
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+ > git fetch --tags --force --progress -- file:///home/submission1/a428-cicd-labs +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/react-app^{commit} # timeout=10
+Checking out Revision 70c55d13f912cec788d43312f1892f49167ce5dc (refs/remotes/origin/react-app)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 70c55d13f912cec788d43312f1892f49167ce5dc # timeout=10
+Commit message: "Edit Jenkinsfile"
+ > git rev-list --no-walk 70c55d13f912cec788d43312f1892f49167ce5dc # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . node:16-buster-slim
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container c31e829874eff1ea0aff03d911c746b50c0836378a47b6ef63f89e333d5bde7f
+but /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti could not be found among []
+but /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -p 3000:3000 -w /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti -v /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti:/var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti:rw,z -v /var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti@tmp:/var/jenkins_home/workspace/submission-cicd-pipeline-ihsanharimurti@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:16-buster-slim cat
+$ docker top 507f4ed51539985d6f9ab7d9b999eeba48cc304b5c0b74cf20a85c15112b1168 -eo pid,comm
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ npm install
+
+up to date, audited 1820 packages in 12s
+
+214 packages are looking for funding
+  run `npm fund` for details
+
+140 vulnerabilities (102 moderate, 31 high, 7 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ ./jenkins/scripts/test.sh
+The following "npm" command (if executed) installs the "cross-env"
+dependency into the local "node_modules" directory, which will ultimately
+be stored in the Jenkins home directory. As described in
+https://docs.npmjs.com/cli/install, the "--save-dev" flag causes the
+"cross-env" dependency to be installed as "devDependencies". For the
+purposes of this tutorial, this flag is not important. However, when
+installing this dependency, it would typically be done so using this
+flag. For a comprehensive explanation about "devDependencies", see
+https://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies.
++ set +x
+The following "npm" command tests that your simple Node.js/React
+application renders satisfactorily. This command actually invokes the test
+runner Jest (https://facebook.github.io/jest/).
++ npm test
+
+> my-app@0.1.0 test
+> react-scripts test --env=jsdom
+
+PASS src/App.test.js
+  ✓ renders without crashing (19 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.945 s
+Ran all test suites.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+$ docker stop --time=1 507f4ed51539985d6f9ab7d9b999eeba48cc304b5c0b74cf20a85c15112b1168
+$ docker rm -f --volumes 507f4ed51539985d6f9ab7d9b999eeba48cc304b5c0b74cf20a85c15112b1168
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
