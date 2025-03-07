@@ -15,7 +15,7 @@ class App extends Component {
     'Honey never spoils.',
     'Octopuses have three hearts.',
     'A day on Venus is longer than a year on Venus.',
-    'Water can boil and freeze at the same time.'
+    'Water can boil and freeze at the same time!.'
   ];
 
   handleClick = () => {
